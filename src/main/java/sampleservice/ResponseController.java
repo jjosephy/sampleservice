@@ -1,11 +1,13 @@
 package sampleservice;
 
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import sample.contract.ErrorContractV1;
+import sample.contract.ResponseContractV1;
 
 @RestController
 public class ResponseController {

@@ -1,4 +1,4 @@
-package sampleservice;
+package sample.contract;
 
 public class ResponseContractV2 {
 
@@ -19,4 +19,8 @@ public class ResponseContractV2 {
     public String getContent() {
         return content;
     }
+
+	public String getNewValue() {
+		return newValue;
+	}
 }
