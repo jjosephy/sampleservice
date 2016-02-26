@@ -1,4 +1,4 @@
-package sample.contract;
+package sample.contract.v1;
 
 public class ResponseContractV1 {
 

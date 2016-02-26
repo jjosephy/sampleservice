@@ -1,11 +1,11 @@
 package sample.contract;
 
-public class ErrorContractV1 {
+public class ErrorContract {
 
     private final int errorCode;
     private final String errorMessage;
 
-    public ErrorContractV1(int errorCode, String errorMessage) {
+    public ErrorContract(int errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
