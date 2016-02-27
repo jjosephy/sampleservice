@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +19,7 @@ import sample.contract.ErrorContract;
 @RestController
 public class AppErrorController extends AbstractErrorController {
 
-    private final ErrorProperties errorProperties;
-    
+    private final ErrorProperties errorProperties;    
    
     public AppErrorController() {
         super(new DefaultErrorAttributes());
@@ -38,13 +36,11 @@ public class AppErrorController extends AbstractErrorController {
     public ResponseEntity<Object> error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
         java.util.Map<String, Object> model = getErrorAttributes(request, true);
-        ErrorContract e = new ErrorContract(1005, model.get("message").toString());
-        return new ResponseEntity<Object>(e, status);
+        return new ResponseEntity<Object>(new ErrorContract(1005, model.get("message").toString()), status);
     }
     
     public HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request
-                .getAttribute("javax.servlet.error.status_code");
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         if (statusCode != null) {
             try {
                 return HttpStatus.valueOf(statusCode);
@@ -57,11 +53,10 @@ public class AppErrorController extends AbstractErrorController {
 
     @Override
     public String getErrorPath() {
-    // TODO Auto-generated method stub
-    return null;
+        return null;
     }
 
     public ErrorProperties getErrorProperties() {
-    return errorProperties;
+        return errorProperties;
     }
 }
