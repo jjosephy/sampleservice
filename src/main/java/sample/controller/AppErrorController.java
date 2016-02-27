@@ -10,12 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import sample.contract.ErrorContract;
 
 /**
  * Basic Controller which is called for unhandled errors
  */
-@Controller
-@RequestMapping("/error")
+@RestController
 public class AppErrorController extends AbstractErrorController {
 
     private final ErrorProperties errorProperties;
@@ -32,12 +34,12 @@ public class AppErrorController extends AbstractErrorController {
     }
     
     @ResponseBody
+    @RequestMapping("/error")
     public ResponseEntity<Object> error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
-        //RequestAttributes body = new ServletRequestAttributes(request);
-        
         java.util.Map<String, Object> model = getErrorAttributes(request, true);
-        return new ResponseEntity<Object>(model, status);
+        ErrorContract e = new ErrorContract(1005, model.get("message").toString());
+        return new ResponseEntity<Object>(e, status);
     }
     
     public HttpStatus getStatus(HttpServletRequest request) {

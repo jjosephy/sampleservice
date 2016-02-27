@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sample.contract.ErrorContract;
 import sample.contract.v1.ResponseContractV1;
+import sample.contract.v1.ResponseContractV1_1;
 import sample.contract.v2.ResponseContractV2;
 
 @RestController
@@ -25,11 +26,14 @@ public class ResponseController {
 
         if (v == 1) {
              return new ResponseContractV1(v, "content");
-        } else if (v == 2) {
+        } else if (v == 1.1) {
+            return new ResponseContractV1_1(v, "rev'd content");
+        }
+        else if (v == 2) {
              return new ResponseContractV2(v, "content", "new");
         } else {
              return new ResponseEntity<ErrorContract>(
-                new ErrorContract(1000, "Unsupported Version"), 
+                new ErrorContract(1001, "Unsupported Version"), 
                 HttpStatus.BAD_REQUEST);
         }
     }
