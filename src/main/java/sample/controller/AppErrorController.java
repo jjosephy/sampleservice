@@ -35,8 +35,12 @@ public class AppErrorController extends AbstractErrorController {
     @RequestMapping("/error")
     public ResponseEntity<ErrorContract> error(HttpServletRequest request) {
         HttpStatus status = getStatus(request);
-        java.util.Map<String, Object> model = getErrorAttributes(request, true);
-        return new ResponseEntity<ErrorContract>(new ErrorContract(1005, model.get("message").toString()), status);
+        if (status == HttpStatus.NOT_FOUND) {
+            return new ResponseEntity<ErrorContract>(new ErrorContract(1004, "NotFound"), status);
+        } else {
+            java.util.Map<String, Object> model = getErrorAttributes(request, true);
+            return new ResponseEntity<ErrorContract>(new ErrorContract(1005, model.get("message").toString()), status);
+        }
     }
     
     public HttpStatus getStatus(HttpServletRequest request) {

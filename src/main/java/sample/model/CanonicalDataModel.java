@@ -9,6 +9,7 @@ public class CanonicalDataModel {
     private final String content;
     private final int size;
     private String attributes = "";
+    private String[] items;
 
     private static Random randomGenerator = new Random();
     
@@ -16,6 +17,10 @@ public class CanonicalDataModel {
         this.id = UUID.randomUUID();
         this.content = "";
         this.size = randomGenerator.nextInt(10000);
+        this.items = new String[4];
+        for (int i = 0; i < 4; i++) {
+            this.items[i] = this.generateRandomString();
+        }
     }
     
     public String getAttributes() {
@@ -36,5 +41,15 @@ public class CanonicalDataModel {
     
     public int getSize() {
         return this.size;
+    }
+    
+    private String generateRandomString() {
+        StringBuilder b = new StringBuilder();
+        
+        for (int idx = 0; idx < 10; ++idx) {
+            b.append(randomGenerator.nextInt(256));
+        }
+          
+        return b.toString();
     }
 }
