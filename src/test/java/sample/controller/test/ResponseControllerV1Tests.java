@@ -7,15 +7,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.junit.Assert.*;
+
 import sample.controller.ResponseController;
 
-public class ResponseControllerTests {
+public class ResponseControllerV1Tests {
 
-    final String BASE_URL = "http://localhost:8080/";
+    final String BASE_URL = "http://localhost:8088/";
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,16 +32,25 @@ public class ResponseControllerTests {
     }
 
     @Test
-    public void testController_fail_badRequest_noVersionHeader() throws Exception{
-        
-        //MockHttpServletRequestBuilder getRequest = get("/simple");
-        //ResultActions results = mockMvc.perform(getRequest);
-        //results.andExpect(status().isBadRequest());
+    public void testController_success_simpleRequest() throws Exception {
+        MockHttpServletRequestBuilder getRequest = get("/simple");
+        getRequest.header("api-version", "1");
+        ResultActions action = mockMvc.perform(getRequest)
+            .andExpect(status().isOk());
         //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
         //.andExpect(jsonPath("$.person.name").value("Jason"));
         
+        MvcResult r = action.andReturn();
+        String str = r.getResponse().getContentAsString();
+        System.out.println(str);
+    }
+    
+    @Test
+    public void testController_fail_badRequest_noVersionHeader() throws Exception{
+        
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .get("/simple").accept(MediaType.APPLICATION_JSON)).andReturn();
+                .get("/simple")
+                .accept(MediaType.APPLICATION_JSON)).andReturn();
 
         Exception ex = result.getResolvedException();
         if (ex == null) {

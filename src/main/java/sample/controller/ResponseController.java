@@ -25,12 +25,12 @@ public class ResponseController {
         }
 
         if (v == 1) {
-             return new ResponseContractV1(v, "content");
+             return new ResponseContractV1(v, "v1 content");
         } else if (v == 1.1) {
-            return new ResponseContractV1_1(v, "rev'd content");
+            return new ResponseContractV1_1(v, "v1.1 content");
         }
         else if (v == 2) {
-             return new ResponseContractV2(v, "content", "new");
+             return new ResponseContractV2(v, "v2 content", "new");
         } else {
              return new ResponseEntity<ErrorContract>(
                 new ErrorContract(1001, "Unsupported Version"), 
