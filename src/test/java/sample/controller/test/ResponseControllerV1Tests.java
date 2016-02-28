@@ -35,11 +35,7 @@ public class ResponseControllerV1Tests {
     public void testController_success_simpleRequest() throws Exception {
         MockHttpServletRequestBuilder getRequest = get("/simple");
         getRequest.header("api-version", "1");
-        ResultActions action = mockMvc.perform(getRequest)
-            .andExpect(status().isOk());
-        //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        //.andExpect(jsonPath("$.person.name").value("Jason"));
-        
+        ResultActions action = mockMvc.perform(getRequest).andExpect(status().isOk());
         MvcResult r = action.andReturn();
         String str = r.getResponse().getContentAsString();
         System.out.println(str);
@@ -48,10 +44,7 @@ public class ResponseControllerV1Tests {
     @Test
     public void testController_fail_badRequest_noVersionHeader() throws Exception{
         
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .get("/simple")
-                .accept(MediaType.APPLICATION_JSON)).andReturn();
-
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/simple")).andReturn();
         Exception ex = result.getResolvedException();
         if (ex == null) {
             fail("expected exception is null");

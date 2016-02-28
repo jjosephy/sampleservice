@@ -6,8 +6,8 @@ import java.util.UUID;
 public class CanonicalDataModel {
 
     private final UUID id;
-    private final String content;
     private final int size;
+    private String content;
     private String attributes = "";
     private String[] items;
 
@@ -37,6 +37,10 @@ public class CanonicalDataModel {
 
     public String getContent() {
         return this.content;
+    }
+    
+    public void setContent(String v) {
+        this.content = v;
     }
     
     public int getSize() {
