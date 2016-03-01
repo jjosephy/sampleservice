@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -12,10 +11,13 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.junit.Assert.*;
 
+import sample.contract.v1.ResponseContractV1;
 import sample.controller.ResponseController;
 
 public class ResponseControllerV1Tests {
@@ -38,7 +40,12 @@ public class ResponseControllerV1Tests {
         ResultActions action = mockMvc.perform(getRequest).andExpect(status().isOk());
         MvcResult r = action.andReturn();
         String str = r.getResponse().getContentAsString();
-        System.out.println(str);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        ResponseContractV1 c = mapper.readValue(str, ResponseContractV1.class);
+        
+        assertTrue("Id value is not correct", c.getId() == 1);
+        assertTrue("Cant find V1 Content", c.getContent().indexOf("_V1Content") >=0);
     }
     
     @Test

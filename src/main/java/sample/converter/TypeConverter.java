@@ -9,19 +9,19 @@ public class TypeConverter {
 
     // Convert V1 Model to Contract
     public static ResponseContractV1 ConvertModelToContractV1(CanonicalDataModel model) {
-        return new ResponseContractV1(1, model.getContent());
+        return new ResponseContractV1(1, model.getContent() + "_V1Content");
     }
     
     // Convert V1 Contract to Model
     public static CanonicalDataModel ConvertContractV1ToModel(ResponseContractV1 contract) {
         CanonicalDataModel model = new CanonicalDataModel();
-        model.setContent(contract.getContent());
+        model.setContent(contract.getContent() + "_V1.1Content");
         return model;
     }
     
     // Convert V1.1 Model to Contract
     public static ResponseContractV1_1 ConvertModelToContractV1_1(CanonicalDataModel model) {
-        return new ResponseContractV1_1(1.1, model.getContent());
+        return new ResponseContractV1_1(1.1, model.getContent() + "V2_Content");
     }
     
     // Convert V1.1 Contract to Model

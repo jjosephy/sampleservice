@@ -15,7 +15,7 @@ public class CanonicalDataModel {
     
     public CanonicalDataModel() {
         this.id = UUID.randomUUID();
-        this.content = "";
+        this.content = this.generateRandomString();
         this.size = randomGenerator.nextInt(10000);
         this.items = new String[4];
         for (int i = 0; i < 4; i++) {
@@ -47,11 +47,13 @@ public class CanonicalDataModel {
         return this.size;
     }
     
+    // TODO: better random string generator
     private String generateRandomString() {
         StringBuilder b = new StringBuilder();
         
         for (int idx = 0; idx < 10; ++idx) {
-            b.append(randomGenerator.nextInt(256));
+            char n = (char)randomGenerator.nextInt(100);
+            b.append(n);
         }
           
         return b.toString();
